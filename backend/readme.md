@@ -129,3 +129,75 @@ Example JSON:
     "error": "An unexpected error occurred"
   }
   ```
+
+---
+
+## Endpoint: `/users/profile`
+
+### Description
+This endpoint is used to fetch the profile of the authenticated user.
+
+### Method
+`GET`
+
+### Headers
+- `Authorization` (string, required): Bearer token for authentication.
+
+### Response
+#### Success (200 OK)
+- **Description**: User profile fetched successfully.
+- **Example**:
+  ```json
+  {
+    "user": {
+      "id": "unique_user_id",
+      "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "email": "johndoe@example.com"
+    },
+    "message": "User profile fetched successfully"
+  }
+  ```
+
+#### Error (401 Unauthorized)
+- **Description**: User is not authenticated or token is invalid/expired.
+- **Example**:
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
+---
+
+## Endpoint: `/users/logout`
+
+### Description
+This endpoint is used to log out the authenticated user by invalidating their token.
+
+### Method
+`GET`
+
+### Headers
+- `Authorization` (string, required): Bearer token for authentication.
+
+### Response
+#### Success (200 OK)
+- **Description**: User logged out successfully.
+- **Example**:
+  ```json
+  {
+    "message": "Logged out successfully"
+  }
+  ```
+
+#### Error (401 Unauthorized)
+- **Description**: User is not authenticated or token is invalid/expired.
+- **Example**:
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```

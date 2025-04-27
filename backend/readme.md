@@ -288,3 +288,160 @@ Example JSON:
     "error": "An unexpected error occurred"
   }
   ```
+
+---
+
+## Endpoint: `/captains/login`
+
+### Description
+This endpoint is used to authenticate a captain and provide a JWT token for subsequent requests.
+
+### Method
+`POST`
+
+### Request Body
+The following fields are required in the request body:
+- `email` (string, required): The email address of the captain. Must be a valid email format.
+- `password` (string, required): The password for the captain. Must be at least 6 characters long.
+
+Example JSON:
+```json
+{
+  "email": "janedoe@example.com",
+  "password": "securepassword"
+}
+```
+
+### Response
+#### Success (200 OK)
+- **Description**: Captain successfully authenticated.
+- **Example**:
+  ```json
+  {
+    "token": "jwt_token_here",
+    "captain": {
+      "id": "unique_captain_id",
+      "fullname": {
+        "firstname": "Jane",
+        "lastname": "Doe"
+      },
+      "email": "janedoe@example.com",
+      "vehicle": {
+        "color": "Red",
+        "plate": "ABC123",
+        "capacity": 4,
+        "vehicleType": "car"
+      }
+    }
+  }
+  ```
+
+#### Error (400 Bad Request)
+- **Description**: Validation error or missing required fields.
+- **Example**:
+  ```json
+  {
+    "errors": [
+      {
+        "msg": "Please enter a valid email address",
+        "param": "email",
+        "location": "body"
+      }
+    ]
+  }
+  ```
+
+#### Error (401 Unauthorized)
+- **Description**: Invalid email or password.
+- **Example**:
+  ```json
+  {
+    "message": "Invalid email or password"
+  }
+  ```
+
+#### Error (500 Internal Server Error)
+- **Description**: Server error while processing the request.
+- **Example**:
+  ```json
+  {
+    "error": "An unexpected error occurred"
+  }
+  ```
+
+---
+
+## Endpoint: `/captains/profile`
+
+### Description
+This endpoint is used to fetch the profile of the authenticated captain.
+
+### Method
+`GET`
+
+### Headers
+- `Authorization` (string, required): Bearer token for authentication.
+
+### Response
+#### Success (200 OK)
+- **Description**: Captain profile fetched successfully.
+- **Example**:
+  ```json
+  {
+    "captain": {
+      "id": "unique_captain_id",
+      "fullname": {
+        "firstname": "Jane",
+        "lastname": "Doe"
+      },
+      "email": "janedoe@example.com",
+      "vehicle": {
+        "color": "Red",
+        "plate": "ABC123",
+        "capacity": 4,
+        "vehicleType": "car"
+      }
+    }
+  }
+  ```
+
+#### Error (401 Unauthorized)
+- **Description**: Captain is not authenticated or token is invalid/expired.
+- **Example**:
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
+---
+
+## Endpoint: `/captains/logout`
+
+### Description
+This endpoint is used to log out the authenticated captain by invalidating their token.
+
+### Method
+`GET`
+
+### Headers
+- `Authorization` (string, required): Bearer token for authentication.
+
+### Response
+#### Success (200 OK)
+- **Description**: Captain logged out successfully.
+- **Example**:
+  ```json
+  {
+    "message": "Logged out successfully"
+  }
+  ```
+
+#### Error (401 Unauthorized)
+- **Description**: Captain is not authenticated or token is invalid/expired.
+- **Example**:
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
